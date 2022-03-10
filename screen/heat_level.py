@@ -1,12 +1,12 @@
 import json
+
+from common.config import get_json_config
 from logs.thread_logger import ThreadLogger
 from common.mqtt import get_mqtt_client, topics
 
 t_logger = ThreadLogger('heat-level')
 
-config_json = open('config.json', 'r')
-config = json.loads(config_json.read())
-config_json.close()
+config = get_json_config()
 
 print("🔥 Starting heat level file script")
 
