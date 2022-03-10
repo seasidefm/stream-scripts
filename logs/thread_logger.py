@@ -1,11 +1,23 @@
 import datetime
-import time
+import logging
+import sys
+
 from termcolor import colored as color
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(message)s %(data)s",
+    handlers=[
+        logging.StreamHandler(sys.stdout)
+    ]
+)
 
 
 class ThreadLogger:
     def __init__(self, thread_name: str):
         self.thread_name = thread_name
+
+        self.logger = logging.getLogger(name=self.thread_name)
 
     @staticmethod
     def get_pretty_time():
@@ -22,5 +34,5 @@ class ThreadLogger:
     def thread_timestamp(self):
         return f"{self.cyan(self.get_pretty_time())} {self.yellow(f'[{self.thread_name}]')} -"
 
-    def log(self, data):
-        print(self.thread_timestamp(), data)
+    def info(self, data):
+        self.logger.info(f"{self.thread_timestamp()}", extra={"data": data})

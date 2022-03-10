@@ -1,7 +1,7 @@
 from logs.thread_logger import ThreadLogger
 
-logger = ThreadLogger('heat-level')
+t_logger = ThreadLogger('heat-level')
 
 
 def run():
-    logger.log('🔥 Running heat level checker')
+    t_logger.info('🔥 Starting heat level checker')
