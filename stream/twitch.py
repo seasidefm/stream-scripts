@@ -1,10 +1,17 @@
-import os
-
 from twitchAPI.twitch import Twitch
+
+from common.config import get_json_config
+from logs.thread_logger import ServiceLogger
+
+logger = ServiceLogger('twitch')
 
 
 class TwitchStream:
     def __init__(self):
-        twitch_app_id = os.environ.get('TWITCH_APP_ID')
-        twitch_app_secret = os.environ.get('TWITCH_APP_SECRET')
-        self.twitch = Twitch(twitch_app_id, twitch_app_secret)
+        config = get_json_config()
+        logger.info("Initializing Twitch service")
+        self.twitch = Twitch(config.get('twitch_app_id'), config.get('twitch_app_secret'))
+
+    def is_live(self) -> bool:
+        stream_data = self.twitch.get_streams(user_login=["seasidefm"])
+        return bool(len(stream_data.get('data')))

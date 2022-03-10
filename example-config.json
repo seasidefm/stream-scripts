@@ -1,6 +1,7 @@
 {
   "mqtt_broker": "10.0.20.3",
   "heat_file": "./heat.txt",
+  "song_file": "./song.txt",
   "twitch_app_id": "some-id-here",
   "twitch_app_secret": "some-secret-here"
 }

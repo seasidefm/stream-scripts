@@ -1,10 +1,10 @@
 import json
 
 from common.config import get_json_config
-from logs.thread_logger import ThreadLogger
+from logs.thread_logger import ServiceLogger
 from common.mqtt import get_mqtt_client, topics
 
-t_logger = ThreadLogger('heat-level')
+t_logger = ServiceLogger('heat-level')
 
 config = get_json_config()
 

@@ -4,7 +4,7 @@ import logging
 from termcolor import colored as color
 
 
-class ThreadLogger:
+class ServiceLogger:
     def __init__(self, thread_name: str, level=logging.DEBUG):
         self.thread_name = thread_name
         self.logger = logging.getLogger(name=self.thread_name)
