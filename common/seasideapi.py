@@ -13,7 +13,8 @@ class SeasideAPI:
         self.token = config.get('seaside_api_token')
 
     def get_current_song(self) -> str:
-        response = requests.get("api.seaside.fm/songs/current", headers={
+        logger.info("Getting current song")
+        response = requests.get("https://api.seaside.fm/songs/current", headers={
             'Authorization': self.token
         }).json()
 
@@ -21,4 +22,15 @@ class SeasideAPI:
 
         return f"{song_dict.get('artist')} - {song_dict.get('song')}"
 
+    def add_song_to_history(self, song: str):
+        logger.info(f"Adding new song: {song}")
+        response = requests.post("https://api.seaside.fm/songs/new",
+                                 headers={
+                                     'Authorization': self.token
+                                 },
+                                 json={
+                                     "song": song.strip()
+                                 }
+                                 ).json()
 
+        logger.info(response.get('message'))
