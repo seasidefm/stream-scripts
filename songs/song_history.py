@@ -1,5 +1,4 @@
 import time
-from typing import Union
 
 from common.config import get_json_config
 from common.seasideapi import SeasideAPI
@@ -26,11 +25,15 @@ def run():
     while True:
         if stream.is_live() or config.get('debug'):
             logger.info('Polling song file')
-
-            current_song = api.get_current_song()
             file_song = read_song_file(config)
+
+            logger.info("Getting current song")
+            current_song = api.get_current_song()
             if current_song != file_song:
+                logger.info(f"Got new song: {file_song}")
                 api.add_song_to_history(file_song)
+            else:
+                logger.info("No change")
 
         else:
             logger.info('Stream is not live, skipping poll')
